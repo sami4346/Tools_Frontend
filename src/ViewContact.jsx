@@ -11,29 +11,33 @@ function ViewContact() {
     message: '',
     address: '',
   });
+  const [page, setPage] = useState(1);
+  const [totalPages, setTotalPages] = useState(1);
   const theme = useContext(ThemeContext);
 
-  // Fetch contacts from API
+  // ✅ useEffect was broken — now fixed
   useEffect(() => {
     async function fetchContacts() {
       try {
-        const response = await fetch(`${import.meta.env.VITE_API_URL}/contacts`);
+        setLoading(true);
+        const response = await fetch(`${import.meta.env.VITE_API_URL}/contacts?page=${page}&limit=10`);
         if (!response.ok) throw new Error('Failed to fetch contacts');
         const data = await response.json();
 
-        // Artificial delay of 1 seconds before setting the data
+        // Artificial delay of 1 second
         setTimeout(() => {
-          setContacts(data);
+          setContacts(data.contacts);
+          setTotalPages(data.totalPages);
           setLoading(false);
-        }, 1000); // 1000ms = 1 seconds
+        }, 1000);
       } catch (error) {
         console.error('Fetch Contacts Error:', error);
-        setLoading(false); // Ensure loading is cleared on error
+        setLoading(false);
       }
     }
 
     fetchContacts();
-  }, []);
+  }, [page]); // ✅ trigger re-fetch on page change
 
   const handleEditClick = (contact) => {
     setEditingContactId(contact._id);
@@ -210,7 +214,6 @@ function ViewContact() {
                             </button>
                           </div>
                         </td>
-
                       </>
                     )}
                   </tr>
@@ -219,10 +222,69 @@ function ViewContact() {
             </tbody>
           </table>
         </div>
+
+        {/* Pagination Controls */}
+        <div className="flex justify-center mt-4 gap-2 flex-wrap items-center">
+          {/* Prev Button */}
+          <button
+            className={`px-3 py-1 rounded ${page === 1
+                ? 'bg-gray-300 text-gray-500 cursor-not-allowed'
+                : 'bg-gray-300 hover:bg-gray-400 text-black'
+              }`}
+            onClick={() => setPage((prev) => Math.max(prev - 1, 1))}
+            disabled={page === 1}
+          >
+            Prev
+          </button>
+
+          {/* Page Numbers */}
+          {[...Array(totalPages).keys()].map((i) => {
+            const pageNum = i + 1;
+            if (
+              pageNum === 1 ||
+              pageNum === totalPages ||
+              Math.abs(pageNum - page) <= 1
+            ) {
+              return (
+                <button
+                  key={pageNum}
+                  onClick={() => {
+                    if (page !== pageNum) setPage(pageNum);
+                  }}
+                  disabled={page === pageNum}
+                  className={`px-3 py-1 rounded ${page === pageNum
+                      ? 'bg-blue-500 text-white cursor-not-allowed'
+                      : 'bg-gray-200 hover:bg-gray-300 text-black'
+                    }`}
+                >
+                  {pageNum}
+                </button>
+              );
+            } else if (
+              (pageNum === 2 && page > 3) ||
+              (pageNum === totalPages - 1 && page < totalPages - 2)
+            ) {
+              return <span key={`dots-${pageNum}`}>...</span>;
+            }
+            return null;
+          })}
+
+          {/* Next Button */}
+          <button
+            className={`px-3 py-1 rounded ${page === totalPages
+                ? 'bg-gray-300 text-gray-500 cursor-not-allowed'
+                : 'bg-gray-300 hover:bg-gray-400 text-black'
+              }`}
+            onClick={() => setPage((prev) => Math.min(prev + 1, totalPages))}
+            disabled={page === totalPages}
+          >
+            Next
+          </button>
+
+        </div>
+
       </div>
     </div>
   );
 }
-
 export default ViewContact;
-
