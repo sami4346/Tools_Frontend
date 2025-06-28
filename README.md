@@ -1,10 +1,11 @@
 Step 1: first clone this repository to your local machine using the following command one by one :
-git clone https://github.com/sami4346/Tools_Backend.git
-cd Tools_Backend
+git clone https://github.com/sami4346/Tools_Frontend.git
+cd Tools_Frontend
+
 npm install
 npm install cors
-npm install mongodb
-npm install mongoose
+npm install firebase
+npm install react-router-dom
 npm install dotenv
 
 Step 2: create a new file named .env in the root directory of the project and add - 
@@ -17,5 +18,4 @@ VITE_FIREBASE_MESSAGING_SENDER_ID = Your_firebase_MESSAGING_SENDER_ID
 VITE_FIREBASE_APP_ID = Your_firebase_APP_ID
 
 # To run the backend, type this command
-cd Tools_Backend
-node index.js
+npm run dev
