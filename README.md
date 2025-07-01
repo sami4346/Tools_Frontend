@@ -7,6 +7,8 @@ npm install cors
 npm install firebase
 npm install react-router-dom
 npm install dotenv
+npm install tailwindcss @tailwindcss/vite
+
 
 Step 2: create a new file named .env in the root directory of the project and add - 
 VITE_API_URL = Your_firebase_API_URL
