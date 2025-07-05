@@ -109,8 +109,8 @@ function ViewContact() {
               <tr>
                 <th className="border px-2 py-1">Name</th>
                 <th className="border px-2 py-1">Email</th>
-                <th className="border px-2 py-1">Message</th>
-                <th className="border px-2 py-1">Address</th>
+                <th className="border px-2 py-1">Profession</th>
+                <th className="border px-2 py-1">Skills</th>
                 <th className="border px-2 py-1">Actions</th>
               </tr>
             </thead>

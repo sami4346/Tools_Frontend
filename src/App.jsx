@@ -7,6 +7,7 @@ import Register from './Register';
 import Login from './Login';
 import Contact from './Contact';
 import ViewContact from './ViewContact';
+import HireNow from './HireNow';
 
 function App() {
   const [user, setUser] = useState(null);
@@ -50,6 +51,7 @@ function App() {
         )}
         <Link className="inline-block px-3 py-1 hover:underline" to="/contact">Contact</Link>
         <Link className="inline-block px-3 py-1 hover:underline" to="/viewContact">View Contact</Link>
+        <Link className="inline-block px-3 py-1 hover:underline" to="/hireNow">Hire Now</Link>
       </nav>
 
       <main className="p-6 flex-grow max-w-xl mx-auto w-full">
@@ -73,6 +75,7 @@ function App() {
           <Route path="/login" element={<Login />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="/viewContact" element={<ViewContact />} />
+          <Route path="/hireNow" element={<HireNow />} />
         </Routes>
       </main>
 

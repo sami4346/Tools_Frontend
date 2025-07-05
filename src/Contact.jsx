@@ -83,7 +83,7 @@ function Contact() {
           />
         </div>
         <div className="mb-3">
-          <label htmlFor="message" className="block mb-1">Message:</label>
+          <label htmlFor="message" className="block mb-1">Profession:</label>
           <textarea
             name="message"
             value={formData.message}
@@ -93,7 +93,7 @@ function Contact() {
           ></textarea>
         </div>
         <div className="mb-3">
-          <label htmlFor="address" className="block mb-1">Address:</label>
+          <label htmlFor="address" className="block mb-1">Skills:</label>
           <textarea
             name="address"
             value={formData.address}
